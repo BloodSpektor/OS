@@ -15,11 +15,17 @@ void Console::work() {
 
 		iss >> com;
 
-		if (com == "help") this->help();
-		if (com == "clear") this->clear();
-		if (com == "exit") this->stop();
+		if (com == "help") 
+			this->file.read("help.txt");
+		
+		if (com == "clear")
+			this->clear(); 
+
+		if (com == "exit") 
+			this->stop(); 
+		
 		if (com == "add") {
-			if (iss >> name)
+			if (iss >> name) 
 				this->file.add(name);
 			else 
 				this->file.add();
@@ -30,8 +36,15 @@ void Console::work() {
 			else 
 				this->file.open();
 		}
-		if (com == "close") this->file.close();
-		if (com == "remove") this->file.remove();
+		if (com == "close") 
+			this->file.close(); 
+	
+		if (com == "remove") { 
+			if (iss >> name)
+				this->file.remove(name);
+			else
+				this->file.remove();
+		}
 		if (com == "write") {
 			if (iss >> name)
 				this->file.write(name);
@@ -47,13 +60,15 @@ void Console::work() {
 	}
 }
 
-void Console::help() {
-	cout << "v 0.1.1" << endl;
+void Console::clear() { 
+	system("cls");
 }
-
-void Console::clear() { system("cls"); }
 
 void Console::stop() { 
 	isWork = false;
 	this->~Console();
+}
+
+void Console::ls() {
+
 }

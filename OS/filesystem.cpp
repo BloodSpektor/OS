@@ -61,10 +61,20 @@ void File::close(string name) {
 }
 
 void File::remove() {
+	string name;
+	cin >> name;
+
+	if (FILE.is_open())
+		FILE.close();
 	
 }
 void File::remove(string name) {
+	if (FILE.is_open())
+		FILE.close();
 	
+	std::remove(name.c_str());
+	if (!FILE.is_open())
+		cout << "File " << name << " deleted" << endl;
 }
 
 void File::write() {
@@ -78,7 +88,7 @@ void File::write() {
 
 	while (true) {
 		getline(cin, text);
-		FILE << text << endl;
+		FILE << text << endl; 
 		if (this->isEmpty(text))
 			break;
 	}
@@ -88,7 +98,6 @@ void File::write() {
 		cout << "File " << name << " close" << endl;
 	}
 }
-
 void File::write(string name) {
 	string text;
 
@@ -112,7 +121,6 @@ void File::write(string name) {
 void File::read() {
 
 }
-
 void File::read(string name) {
 	ifstream FILE(name);
 	string text;

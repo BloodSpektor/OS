@@ -1,7 +1,6 @@
 #pragma once
 #include "filesystem.h"
-#include <thread>
-#include <sstream>
+#include "include.h"
 
 class Console {
 public:
@@ -14,7 +13,7 @@ public:
 private:
 	File file;
 
-	void help();
 	void clear();
 	void stop();
+	void ls();
 };
