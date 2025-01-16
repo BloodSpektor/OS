@@ -25,10 +25,12 @@ void Console::work() {
 				this->file.add();
 		}
 		if (com == "open") {
-			if (iss >> name)
+			if (iss >> name) {
 				this->file.open(name);
-			else 
+			}
+			else {
 				this->file.open();
+			}
 		}
 		if (com == "close") this->file.close();
 		if (com == "remove") this->file.remove();
@@ -44,6 +46,8 @@ void Console::work() {
 			else
 				this->file.read();
 		}
+		if (com == "ls")
+			this->file.ls();
 	}
 }
 
@@ -56,4 +60,10 @@ void Console::clear() { system("cls"); }
 void Console::stop() { 
 	isWork = false;
 	this->~Console();
+}
+
+void Console::newThread() {
+	thread THREAD;
+	file.open();
+	THREAD.detach();
 }

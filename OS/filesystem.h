@@ -24,6 +24,8 @@ public:
 	void write(string name);
 	void read();
 	void read(string name);
+	void ls();
+	void ls(string way);
 
 	ofstream FILE;
 private:

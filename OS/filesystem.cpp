@@ -37,16 +37,21 @@ void File::open() {
 	string name = "";
 	cout << "Enter file name" << endl;
 	cin >> name;
-	if(FILE.is_open())
-		cout << "File " << name << " open" << endl;
-	system(name.c_str());
-	if(!FILE.is_open())
-		cout << "File " << name << " close" << endl;
-}
-void File::open(string name) {
+
 	if (FILE.is_open())
 		cout << "File " << name << " open" << endl;
+	
 	system(name.c_str());
+	
+	if (!FILE.is_open())
+		cout << "File " << name << " close" << endl;
+}
+void File::open(string name) {	
+	if (FILE.is_open()) 
+		cout << "File " << name << " open" << endl;
+	
+	system(name.c_str());
+
 	if (!FILE.is_open())
 		cout << "File " << name << " close" << endl;
 }
@@ -56,8 +61,10 @@ void File::close() {
 		FILE.close();
 }
 void File::close(string name) {
-	if (FILE.is_open())
+	if (FILE.is_open()) {
 		FILE.close();
+		cout << "File " << name << " close" << endl;
+	}
 }
 
 void File::remove() {
@@ -123,6 +130,14 @@ void File::read(string name) {
 		FILE.close();
 	}
 	else cout << "Cant read file" << endl;
+}
+
+void File::ls() {
+	
+}
+
+void File::ls(string way) {
+
 }
 
 bool File::isEmpty(const string& str) {
