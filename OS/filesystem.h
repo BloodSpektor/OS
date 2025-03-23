@@ -1,11 +1,5 @@
 #pragma once
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <algorithm>
-#include <windows.h>
-#include <cstdlib>
-using namespace std;
+#include "include.h"
 
 class File {
 public:
@@ -15,19 +9,18 @@ public:
 	void add();
 	void add(string name);
 	void open();
-	void open(string names);
+	void open(string name);
 	void close();
 	void close(string name);
 	void remove();
 	void remove(string name);
-	void write();
+	void write(); // при вызове функции перезаписывает файл 
 	void write(string name);
 	void read();
 	void read(string name);
-	void ls();
-	void ls(string way);
 
 	ofstream FILE;
 private:
 	bool isEmpty(const string& str);
+	bool threadUseful = true;
 };

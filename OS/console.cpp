@@ -13,57 +13,66 @@ void Console::work() {
 		istringstream iss(input);
 		string com, name;
 
-		iss >> com;
+		iss >> com; // сделать отлов ввода
 
-		if (com == "help") this->help();
-		if (com == "clear") this->clear();
-		if (com == "exit") this->stop();
+		if (com == "help") 
+			file.read("help.txt");
+		
+		if (com == "clear")
+			clear(); 
+
+		if (com == "exit") 
+			stop(); 
+		
 		if (com == "add") {
 			if (iss >> name)
-				this->file.add(name);
+				file.add(name);
 			else 
-				this->file.add();
+				file.add();
 		}
 		if (com == "open") {
 			if (iss >> name) {
-				this->file.open(name);
+				file.open(name);
 			}
 			else {
-				this->file.open();
+				file.open();
 			}
 		}
-		if (com == "close") this->file.close();
-		if (com == "remove") this->file.remove();
+		if (com == "close") 
+			file.close(); 
+	
+		if (com == "remove") { 
+			if (iss >> name)
+				file.remove(name);
+			else
+				file.remove();
+		}
 		if (com == "write") {
 			if (iss >> name)
-				this->file.write(name);
+				file.write(name);
 			else
-				this->file.write();
+				file.write();
 		}
 		if (com == "read") {
 			if (iss >> name)
-				this->file.read(name);
+				file.read(name);
 			else
-				this->file.read();
+				file.read();
 		}
 		if (com == "ls")
-			this->file.ls();
+			ls();
 	}
 }
 
-void Console::help() {
-	cout << "v 0.1.1" << endl;
+void Console::clear() {
+	system("cls");
 }
-
-void Console::clear() { system("cls"); }
 
 void Console::stop() { 
 	isWork = false;
 	this->~Console();
 }
 
-void Console::newThread() {
-	thread THREAD;
-	file.open();
-	THREAD.detach();
+void Console::ls() {
+	
 }

@@ -1,8 +1,6 @@
 #pragma once
 #include "filesystem.h"
-#include <thread>
-#include <mutex>
-#include <sstream>
+#include "include.h"
 
 class Console {
 public:
@@ -12,11 +10,9 @@ public:
 	void work();
 	
 	bool isWork = false;
-private:
 	File file;
-
-	void help();
+private:
 	void clear();
 	void stop();
-	void newThread();
+	void ls();
 };

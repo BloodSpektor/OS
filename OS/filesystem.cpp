@@ -34,26 +34,33 @@ void File::add(string name) {
 }
 
 void File::open() {
-	string name = "";
+	string name;
 	cout << "Enter file name" << endl;
 	cin >> name;
 
 	if (FILE.is_open())
 		cout << "File " << name << " open" << endl;
-	
-	system(name.c_str());
-	
-	if (!FILE.is_open())
-		cout << "File " << name << " close" << endl;
-}
-void File::open(string name) {	
-	if (FILE.is_open()) 
-		cout << "File " << name << " open" << endl;
-	
-	system(name.c_str());
+
+	thread t(system, name.c_str());
+	t.detach();
 
 	if (!FILE.is_open())
 		cout << "File " << name << " close" << endl;
+
+	t.join();
+}
+// сделать отлов ощибки
+void File::open(string name) {
+	if (FILE.is_open()) 
+		cout << "File " << name << " open" << endl;
+
+	thread t(system, name.c_str());
+	t.detach();
+	
+	if (!FILE.is_open())
+		cout << "File " << name << " close" << endl;
+	
+	t.join();
 }
 
 void File::close() {
@@ -68,10 +75,23 @@ void File::close(string name) {
 }
 
 void File::remove() {
+	string name;
+	cin >> name;
+
+	if (FILE.is_open())
+		FILE.close();
 	
+	std::remove(name.c_str());
+	if (!FILE.is_open())
+		cout << "File " << name << " deleted" << endl;
 }
 void File::remove(string name) {
+	if (FILE.is_open())
+		FILE.close();
 	
+	std::remove(name.c_str());
+	if (!FILE.is_open())
+		cout << "File " << name << " deleted" << endl;
 }
 
 void File::write() {
@@ -85,7 +105,7 @@ void File::write() {
 
 	while (true) {
 		getline(cin, text);
-		FILE << text << endl;
+		FILE << text << endl; 
 		if (this->isEmpty(text))
 			break;
 	}
@@ -95,7 +115,6 @@ void File::write() {
 		cout << "File " << name << " close" << endl;
 	}
 }
-
 void File::write(string name) {
 	string text;
 
@@ -117,9 +136,16 @@ void File::write(string name) {
 }
 
 void File::read() {
+	string name, text;
+	ifstream FILE(name);
 
+	if (FILE.is_open()) {
+		while (getline(FILE, text))
+			cout << text << endl;
+		FILE.close();
+	}
+	else cout << "Can't read file" << endl;
 }
-
 void File::read(string name) {
 	ifstream FILE(name);
 	string text;
@@ -129,15 +155,7 @@ void File::read(string name) {
 			cout << text << endl;
 		FILE.close();
 	}
-	else cout << "Cant read file" << endl;
-}
-
-void File::ls() {
-	
-}
-
-void File::ls(string way) {
-
+	else cout << "Can't read file" << endl;
 }
 
 bool File::isEmpty(const string& str) {
